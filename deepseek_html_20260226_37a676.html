@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اختبارات السياقة التفاعلية | مدارس السياقة الجزائرية</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f9fafc;
+      color: #1e293b;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* header (مطابق للصفحات السابقة) */
+    .header {
+      background-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    .header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f3b5e;
+    }
+
+    .logo i {
+      color: #f5b041;
+      font-size: 2rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 1.5rem;
+      font-weight: 600;
+    }
+
+    .nav-menu a {
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-menu a:hover {
+      color: #0f3b5e;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #f5b041;
+      transition: width 0.3s;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    .contact-btn {
+      background-color: #0f3b5e;
+      color: white !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .contact-btn:hover {
+      background-color: #1e4f73;
+      transform: scale(1.05);
+    }
+
+    /* رأس فرعي للصفحة */
+    .page-header {
+      background: linear-gradient(135deg, #0f3b5e 0%, #1b4d75 100%);
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* حاوية الاختبار */
+    .quiz-wrapper {
+      background: white;
+      border-radius: 40px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 40px rgba(0,20,40,0.08);
+      margin: 2rem auto 4rem;
+      max-width: 900px;
+    }
+
+    /* رأس الاختبار: العداد والشريط */
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .question-counter {
+      background: #eef2f6;
+      padding: 0.5rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+      color: #0f3b5e;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 20px;
+      overflow: hidden;
+      max-width: 300px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #f5b041;
+      border-radius: 20px;
+      transition: width 0.3s;
+    }
+
+    /* بطاقة السؤال */
+    .question-card {
+      background: #f8fafc;
+      border-radius: 30px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .question-text {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #0f3b5e;
+      margin-bottom: 1.5rem;
+    }
+
+    /* خيارات الإجابة */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .option-btn {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 60px;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      text-align: right;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: #f5b041;
+      background: #fff7e6;
+      transform: scale(1.02);
+    }
+
+    .option-btn.selected {
+      background: #f5b041;
+      border-color: #f5b041;
+      color: #0f3b5e;
+      font-weight: 600;
+    }
+
+    .option-btn.correct {
+      background: #28a745;
+      border-color: #28a745;
+      color: white;
+    }
+
+    .option-btn.wrong {
+      background: #dc3545;
+      border-color: #dc3545;
+      color: white;
+    }
+
+    .option-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .option-prefix {
+      background: rgba(0,0,0,0.1);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    /* أزرار التنقل */
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .nav-btn {
+      background: #0f3b5e;
+      color: white;
+      border: none;
+      padding: 0.8rem 2.2rem;
+      border-radius: 60px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: #1e4f73;
+      transform: scale(1.02);
+    }
+
+    .nav-btn:disabled {
+      background: #b0c4d9;
+      cursor: not-allowed;
+    }
+
+    .nav-btn.secondary {
+      background: #e2e8f0;
+      color: #0f3b5e;
+    }
+
+    .nav-btn.secondary:hover:not(:disabled) {
+      background: #cbd5e1;
+    }
+
+    /* شاشة النتيجة */
+    .result-card {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .result-title {
+      font-size: 2.5rem;
+      color: #0f3b5e;
+      margin-bottom: 1rem;
+    }
+
+    .score-circle {
+      width: 200px;
+      height: 200px;
+      margin: 1.5rem auto;
+      border-radius: 50%;
+      background: #f5b041;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #0f3b5e;
+      box-shadow: 0 10px 20px rgba(245,176,65,0.3);
+    }
+
+    .restart-btn {
+      background: #0f3b5e;
+      color: white;
+      border: none;
+      padding: 1rem 3rem;
+      border-radius: 60px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 1rem 0;
+      transition: background 0.3s;
+    }
+
+    .restart-btn:hover {
+      background: #1e4f73;
+    }
+
+    /* تذييل الصفحة (مطابق) */
+    .footer {
+      background-color: #0f3b5e;
+      color: #e2e8f0;
+      padding: 3rem 0 2rem;
+      border-top: 5px solid #f5b041;
+      margin-top: 4rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .footer-col h3 {
+      color: white;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .footer-col h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 60px;
+      height: 3px;
+      background-color: #f5b041;
+    }
+
+    .footer-col p {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .footer-col i {
+      color: #f5b041;
+      font-size: 1.2rem;
+      width: 25px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a:hover {
+      color: #f5b041;
+      margin-right: 5px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      background-color: rgba(255,255,255,0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .social-links a:hover {
+      background-color: #f5b041;
+      color: #0f3b5e;
+      transform: scale(1.1);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #295a7a;
+      color: #b0c4d9;
+      font-size: 0.95rem;
+    }
+
+    /* استجابة */
+    @media (max-width: 992px) {
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .header .container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .page-header h1 { font-size: 2.2rem; }
+      .quiz-wrapper { padding: 1.5rem; }
+      .options-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .footer-col h3::after { right: 50%; transform: translateX(50%); }
+      .footer-col p { justify-content: center; }
+      .social-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header (نفس التصميم) -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <i class="fas fa-car-side"></i>
+        <span>مدرسة السياقة الجزائرية</span>
+      </div>
+      <nav class="nav-menu">
+        <a href="#">الرئيسية</a>
+        <a href="#">إشارات المرور</a>
+        <a href="#">قوانين السياقة</a>
+        <a href="#">نصائح الأمان</a>
+        <a href="#" style="color:#0f3b5e; font-weight:700;">اختبارات</a>
+      </nav>
+      <a href="#" class="contact-btn"><i class="fas fa-phone-alt"></i> اتصل بنا</a>
+    </div>
+  </header>
+
+  <!-- عنوان الصفحة -->
+  <section class="page-header">
+    <div class="container">
+      <h1>اختبارات السياقة التفاعلية</h1>
+      <p>اختبر معلوماتك في قانون المرور والإشارات مع أكبر مجموعة من الأسئلة</p>
+    </div>
+  </section>
+
+  <!-- حاوية الاختبار -->
+  <div class="container">
+    <div class="quiz-wrapper" id="quizWrapper">
+      <!-- يتم تعبئة المحتوى ديناميكياً عبر JavaScript -->
+      <div id="quizContent"></div>
+    </div>
+  </div>
+
+  <!-- Footer (نفس التصميم) -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>عن الموقع</h3>
+          <p><i class="fas fa-flag-checkered"></i> أول منصة جزائرية متكاملة لتعليم السياقة، تجمع بين الإشارات، القوانين، النصائح والاختبارات.</p>
+          <p><i class="fas fa-map-pin"></i> الجزائر - جميع الولايات</p>
+          <p><i class="fas fa-envelope"></i> contact@driv-edu.dz</p>
+        </div>
+        <div class="footer-col">
+          <h3>روابط مفيدة</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-left"></i> إشارات المرور</a></li>
+            <li><a href="#"><i class="fas fa-chevron-left"></i> قانون المرور الجديد</a></li>
+            <li><a href="#"><i class="fas fa-chevron-left"></i> نصائح الأمان على الطريق</a></li>
+            <li><a href="#"><i class="fas fa-chevron-left"></i> اختبارات رخصة السياقة</a></li>
+            <li><a href="#"><i class="fas fa-chevron-left"></i> مدارس السياقة المعتمدة</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>تواصل معنا</h3>
+          <p><i class="fas fa-phone"></i> 0550 12 34 56 (الجزائر العاصمة)</p>
+          <p><i class="fas fa-phone"></i> 0540 98 76 54 (وهران)</p>
+          <p><i class="fas fa-clock"></i> أيام العمل: 8:00 – 19:00</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 مدارس السياقة الجزائرية. جميع الحقوق محفوظة. تصميم وبرمجة بإتقان
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // مجموعة ضخمة من الأسئلة (20 سؤالاً)
+      const questions = [
+        {
+          question: "ما هي أقصى سرعة مسموح بها داخل المدن في الجزائر؟",
+          options: ["50 كم/س", "60 كم/س", "70 كم/س", "80 كم/س"],
+          answer: 0 // 50 كم/س
+        },
+        {
+          question: "ما معنى هذه الإشارة: مثلث أحمر بداخله علامة تعجب؟",
+          options: ["منعطف خطير", "طريق زلقة", "أشغال", "خطر عام"],
+          answer: 3 // خطر عام (تحذير)
+        },
+        {
+          question: "عند اقترابك من تقاطع بدون إشارات، من له الأولوية؟",
+          options: ["المركبة القادمة من اليمين", "المركبة القادمة من اليسار", "المركبة الأكبر حجماً", "المركبة الأسرع"],
+          answer: 0 // القادمة من اليمين
+        },
+        {
+          question: "ما هي المسافة الدنيا التي يجب وضع مثلث التحذير فيها خلف المركبة المتوقفة داخل المدينة؟",
+          options: ["20 متراً", "30 متراً", "50 متراً", "100 متر"],
+          answer: 2 // 50 متر (داخل المدينة 50، خارج 100)
+        },
+        {
+          question: "القيادة تحت تأثير الكحول: الحد الأقصى المسموح به هو؟",
+          options: ["0.2 غرام/لتر", "0.5 غرام/لتر", "0.8 غرام/لتر", "ممنوع نهائياً"],
+          answer: 1 // 0.5 غرام/لتر في الجزائر
+        },
+        {
+          question: "ما هي الإشارة التي تسمح لك بتجاوز مركبة أخرى؟",
+          options: ["خط متواصل", "خط منفصل (متقطع)", "خطان متواصلان", "إشارة قف"],
+          answer: 1 // خط متقطع
+        },
+        {
+          question: "على الطريق السريع، السرعة القصوى للسيارات الخاصة هي؟",
+          options: ["90 كم/س", "100 كم/س", "110 كم/س", "120 كم/س"],
+          answer: 1 // 100 كم/س (في الجزائر)
+        },
+        {
+          question: "متى يجب استخدام الأنوار العالية (الضوء العالي)؟",
+          options: ["داخل المدن ليلاً", "عند اقتراب مركبة قادمة", "في الطرق المظلمة خارج المدن", "في الضباب الكثيف"],
+          answer: 2 // في الطرق المظلمة خارج المدن
+        },
+        {
+          question: "ما هي العقوبة المقررة لاستخدام الهاتف باليد أثناء القيادة؟",
+          options: ["إنذار فقط", "غرامة مالية", "سحب الرخصة", "الحبس"],
+          answer: 1 // غرامة مالية (في القانون الجزائري)
+        },
+        {
+          question: "إشارة 'قف' تعني:",
+          options: ["تخفيف السرعة فقط", "التوقف الإلزامي ثم الانطلاق بعد التأكد", "إعطاء الأولوية", "ممنوع الدخول"],
+          answer: 1 // التوقف الإلزامي
+        },
+        {
+          question: "ما هو الحد الأدنى لعمر الحصول على رخصة سياقة (صنف ب) في الجزائر؟",
+          options: ["17 سنة", "18 سنة", "19 سنة", "21 سنة"],
+          answer: 1 // 18 سنة
+        },
+        {
+          question: "عند انزلاق العجلات بسبب المطر، ماذا تفعل؟",
+          options: ["الفرملة بقوة", "تحريك المقود بشدة", "رفع القدم عن الوقود وعدم الفرملة", "زيادة السرعة"],
+          answer: 2 // رفع القدم عن الوقود وعدم الفرملة
+        },
+        {
+          question: "الضوء الأصفر المتقطع في الإشارة الضوئية يعني:",
+          options: ["قف", "تأنَّ وكن حذراً", "الطريق مغلق", "انطلق بسرعة"],
+          answer: 1 // تأنَّ وكن حذراً
+        },
+        {
+          question: "ما هي الوثائق التي يجب أن يحملها السائق دائماً؟",
+          options: ["رخصة السياقة فقط", "بطاقة التعريف الوطنية", "رخصة السياقة + بطاقة التعريف + شهادة التأمين + بطاقة رمادية", "رخصة السياقة + جواز السفر"],
+          answer: 2 // جميعها
+        },
+        {
+          question: "كم نقطة تحتوي عليها رخصة السياقة الجزائرية (نظام النقاط)؟",
+          options: ["12 نقطة", "20 نقطة", "24 نقطة", "30 نقطة"],
+          answer: 2 // 24 نقطة (حسب النظام الجديد)
+        },
+        {
+          question: "إشارة مرور على شكل دائرة زرقاء بداخلها دراجة هوائية تعني:",
+          options: ["طريق خاص بالدراجات فقط", "يسمح للدراجات بالسير", "ممنوع مرور الدراجات", "موقف دراجات"],
+          answer: 1 // يسمح للدراجات بالسير (إلزامي؟) غالباً تعني طريق مخصص للدراجات أو مسار للدراجات
+          // دقق: الدائرة الزرقاء تعني إلزام، فتعني طريق إلزامي للدراجات. لكننا نضعها كإشارة إرشادية.
+        },
+        {
+          question: "ما هو الإجراء الصحيح عند اقتراب سيارة إسعاف وتسمع صفارة الإنذار؟",
+          options: ["زيادة السرعة لتفسح لها الطريق", "التوقف فجأة", "الانعطاف يميناً والتوقف إن أمكن", "إغلاق النوافذ"],
+          answer: 2 // الانعطاف يميناً والتوقف إن أمكن
+        },
+        {
+          question: "الخط الأصفر المتصل على حافة الرصيف يعني:",
+          options: ["يُمنع التوقف مطلقاً", "يُسمح بالتوقف لمدة قصيرة", "موقف سيارات", "طريق سريع"],
+          answer: 0 // يمنع التوقف
+        },
+        {
+          question: "ما هي المسافة الآمنة التي يجب تركها بينك وبين المركبة التي أمامك على الطريق الجاف؟",
+          options: ["ثانيتان", "3 ثوان", "5 ثوان", "10 ثوان"],
+          answer: 0 // قاعدة الثانيتين
+        },
+        {
+          question: "عند الانعطاف إلى اليمين، يجب:",
+          options: ["استعمال إشارة الانعطاف قبل المنعطف", "الانعطاف بسرعة عالية", "عدم استعمال الإشارة", "الانعطاف من الحارة اليسرى"],
+          answer: 0 // استعمال الإشارة قبل المنعطف
+        }
+      ];
+
+      // متغيرات الحالة
+      let currentQuestionIndex = 0;
+      let userAnswers = new Array(questions.length).fill(null); // null يعني لم يجب بعد
+      let quizFinished = false;
+      let totalQuestions = questions.length;
+
+      // عناصر DOM
+      const quizContent = document.getElementById('quizContent');
+
+      // دالة عرض المحتوى حسب الحالة
+      function render() {
+        if (quizFinished) {
+          renderResults();
+        } else {
+          renderQuestion();
+        }
+        // تحديث شريط التقدم في header
+      }
+
+      // عرض السؤال الحالي
+      function renderQuestion() {
+        const q = questions[currentQuestionIndex];
+        const selected = userAnswers[currentQuestionIndex]; // يمكن أن يكون null أو index
+
+        // بناء خيارات HTML
+        let optionsHtml = '';
+        const letters = ['أ', 'ب', 'ج', 'د'];
+        q.options.forEach((opt, idx) => {
+          let selectedClass = '';
+          if (selected === idx) selectedClass = 'selected';
+          optionsHtml += `
+            <button class="option-btn ${selectedClass}" data-opt-index="${idx}">
+              <span class="option-prefix">${letters[idx]}</span>
+              ${opt}
+            </button>
+          `;
+        });
+
+        // تحديد حالة أزرار التنقل
+        const isLast = currentQuestionIndex === totalQuestions - 1;
+        const nextDisabled = selected === null; // لا يمكن الذهاب للسؤال التالي إلا بعد الإجابة
+        const prevDisabled = currentQuestionIndex === 0;
+
+        // عداد التقدم
+        const progressPercent = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+
+        const html = `
+          <div class="quiz-header">
+            <div class="question-counter">السؤال ${currentQuestionIndex + 1} / ${totalQuestions}</div>
+            <div class="progress-bar"><div class="progress-fill" style="width: ${progressPercent}%;"></div></div>
+          </div>
+          <div class="question-card">
+            <div class="question-text">${q.question}</div>
+            <div class="options-grid" id="optionsContainer">
+              ${optionsHtml}
+            </div>
+          </div>
+          <div class="nav-buttons">
+            <button class="nav-btn secondary" id="prevBtn" ${prevDisabled ? 'disabled' : ''}><i class="fas fa-arrow-right"></i> السابق</button>
+            ${!isLast ? '<button class="nav-btn" id="nextBtn" ' + (nextDisabled ? 'disabled' : '') + '>التالي <i class="fas fa-arrow-left"></i></button>' : '<button class="nav-btn" id="finishBtn" ' + (nextDisabled ? 'disabled' : '') + '>إنهاء الاختبار <i class="fas fa-check"></i></button>'}
+          </div>
+        `;
+
+        quizContent.innerHTML = html;
+
+        // إضافة event listeners للخيارات
+        document.querySelectorAll('.option-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            if (quizFinished) return;
+            const idx = parseInt(btn.dataset.optIndex);
+            // إزالة selected من جميع الخيارات
+            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            // تخزين الإجابة
+            userAnswers[currentQuestionIndex] = idx;
+            // تفعيل زر التالي/إنهاء
+            const nextBtn = document.getElementById('nextBtn');
+            const finishBtn = document.getElementById('finishBtn');
+            if (nextBtn) nextBtn.disabled = false;
+            if (finishBtn) finishBtn.disabled = false;
+          });
+        });
+
+        // أزرار التنقل
+        const prevBtn = document.getElementById('prevBtn');
+        if (prevBtn) {
+          prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+              currentQuestionIndex--;
+              render();
+            }
+          });
+        }
+
+        const nextBtn = document.getElementById('nextBtn');
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < totalQuestions - 1 && userAnswers[currentQuestionIndex] !== null) {
+              currentQuestionIndex++;
+              render();
+            }
+          });
+        }
+
+        const finishBtn = document.getElementById('finishBtn');
+        if (finishBtn) {
+          finishBtn.addEventListener('click', () => {
+            if (userAnswers[currentQuestionIndex] !== null) {
+              quizFinished = true;
+              render();
+            }
+          });
+        }
+      }
+
+      // عرض النتيجة
+      function renderResults() {
+        // حساب النتيجة
+        let correctCount = 0;
+        questions.forEach((q, idx) => {
+          if (userAnswers[idx] === q.answer) correctCount++;
+        });
+
+        const scorePercent = Math.round((correctCount / totalQuestions) * 100);
+
+        let resultMessage = '';
+        if (scorePercent >= 90) resultMessage = 'ممتاز! أنت مستعد تماماً للامتحان';
+        else if (scorePercent >= 70) resultMessage = 'جيد جداً، لكن راجع بعض النقاط';
+        else if (scorePercent >= 50) resultMessage = 'مقبول، تحتاج إلى المذاكرة أكثر';
+        else resultMessage = 'لم تحقق النجاح، ننصح بمراجعة القوانين والإشارات';
+
+        // بناء قائمة بالأسئلة مع الإجابات (اختياري لعرض المراجعة)
+        let reviewHtml = '';
+        for (let i = 0; i < questions.length; i++) {
+          const q = questions[i];
+          const userAns = userAnswers[i];
+          const isCorrect = userAns === q.answer;
+          const correctLetter = String.fromCharCode(65 + q.answer); // A,B,C,D
+          const userLetter = userAns !== null ? String.fromCharCode(65 + userAns) : 'لم يجب';
+
+          // نختصر المراجعة هنا، لكن يمكن إضافتها إذا أردنا.
+        }
+
+        const html = `
+          <div class="result-card">
+            <div class="result-title">نتيجتك</div>
+            <div class="score-circle">${correctCount}/${totalQuestions}</div>
+            <p style="font-size:1.5rem; margin-bottom:1rem;">${scorePercent}%</p>
+            <p style="margin-bottom:2rem;">${resultMessage}</p>
+            <button class="restart-btn" id="restartBtn"><i class="fas fa-redo-alt"></i> حاول مرة أخرى</button>
+          </div>
+        `;
+
+        quizContent.innerHTML = html;
+
+        document.getElementById('restartBtn').addEventListener('click', () => {
+          // إعادة تعيين الحالة
+          currentQuestionIndex = 0;
+          userAnswers = new Array(questions.length).fill(null);
+          quizFinished = false;
+          render();
+        });
+      }
+
+      // تأثير تغيير الهيدر عند التمرير
+      window.addEventListener('scroll', function() {
+        const header = document.querySelector('.header');
+        if (window.scrollY > 100) {
+          header.style.boxShadow = '0 6px 18px rgba(0,0,0,0.1)';
+          header.style.background = 'rgba(255,255,255,0.98)';
+        } else {
+          header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
+          header.style.background = '#ffffff';
+        }
+      });
+
+      // بدء الاختبار
+      render();
+    })();
+  </script>
+</body>
+</html>

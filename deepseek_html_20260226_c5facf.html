@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>قوانين السياقة | مدارس السياقة الجزائرية</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f9fafc;
+      color: #1e293b;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* header (مطابق للصفحات السابقة) */
+    .header {
+      background-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    .header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f3b5e;
+    }
+
+    .logo i {
+      color: #f5b041;
+      font-size: 2rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 1.5rem;
+      font-weight: 600;
+    }
+
+    .nav-menu a {
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-menu a:hover {
+      color: #0f3b5e;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #f5b041;
+      transition: width 0.3s;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    .contact-btn {
+      background-color: #0f3b5e;
+      color: white !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .contact-btn:hover {
+      background-color: #1e4f73;
+      transform: scale(1.05);
+    }
+
+    /* رأس فرعي لصفحة القوانين */
+    .page-header {
+      background: linear-gradient(135deg, #0f3b5e 0%, #1b4d75 100%);
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* أقسام القوانين */
+    .laws-section {
+      padding: 2rem 0 4rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      color: #0f3b5e;
+      margin: 2.5rem 0 1.5rem;
+      padding-right: 0.75rem;
+      border-right: 6px solid #f5b041;
+    }
+
+    .laws-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .law-card {
+      background: white;
+      border-radius: 28px;
+      padding: 1.8rem 1.5rem;
+      box-shadow: 0 10px 25px rgba(0, 20, 40, 0.08);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      text-align: right;
+      border-bottom: 4px solid transparent;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .law-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 30px rgba(15, 59, 94, 0.15);
+      border-bottom-color: #f5b041;
+    }
+
+    .law-icon {
+      width: 70px;
+      height: 70px;
+      background: #eef2f6;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: #0f3b5e;
+      margin-bottom: 1.5rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .law-card:hover .law-icon {
+      background: #f5b041;
+      color: #0f3b5e;
+    }
+
+    .law-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f3b5e;
+      margin-bottom: 0.75rem;
+    }
+
+    .law-desc {
+      color: #4b5563;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+
+    .law-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #f5b041;
+      font-weight: 600;
+      transition: margin-right 0.2s;
+      margin-top: auto;
+    }
+
+    .law-link i {
+      font-size: 0.9rem;
+    }
+
+    .law-link:hover {
+      margin-right: 5px;
+      color: #0f3b5e;
+    }
+
+    /* تذييل الصفحة (مطابق) */
+    .footer {
+      background-color: #0f3b5e;
+      color: #e2e8f0;
+      padding: 3rem 0 2rem;
+      border-top: 5px solid #f5b041;
+      margin-top: 4rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .footer-col h3 {
+      color: white;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .footer-col h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 60px;
+      height: 3px;
+      background-color: #f5b041;
+    }
+
+    .footer-col p {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .footer-col i {
+      color: #f5b041;
+      font-size: 1.2rem;
+      width: 25px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a:hover {
+      color: #f5b041;
+      margin-right: 5px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      background-color: rgba(255,255,255,0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .social-links a:hover {
+      background-color: #f5b041;
+      color: #0f3b5e;
+      transform: scale(1.1);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #295a7a;
+      color: #b0c4d9;
+      font-size: 0.95rem;
+    }
+
+    /* استجابة */
+    @media (max-width: 992px) {
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .header .container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .page-header h1 { font-size: 2.2rem; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .footer-col h3::after { right: 50%; transform: translateX(50%); }
+      .footer-col p { justify-content: center; }
+      .social-links { justify-content: center; }
+    }
+
+    @media (max-width: 480px) {
+      .laws-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header (نفس التصميم) -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <i class="fas fa-car-side"></i>
+        <span>مدرسة السياقة الجزائرية</span>
+      </div>
+      <nav class="nav-menu">
+        <a href="#">الرئيسية</a>
+        <a href="#">إشارات المرور</a>
+        <a href="#" style="color:#0f3b5e; font-weight:700;">قوانين السياقة</a>
+        <a href="#">نصائح الأمان</a>
+        <a href="#">اختبارات</a>
+      </nav>
+      <a href="#" class="contact-btn"><i class="fas fa-phone-alt"></i> اتصل بنا</a>
+    </div>
+  </header>
+
+  <!-- عنوان الصفحة -->
+  <section class="page-header">
+    <div class="container">
+      <h1>قوانين السياقة في الجزائر</h1>
+      <p>تعرف على القوانين واللوائح المنظمة للمرور، والمخالفات، والسرعات المحدثة</p>
+    </div>
+  </section>
+
+  <!-- محتوى الصفحة: مجموعات القوانين -->
+  <main class="laws-section container">
+    <!-- قسم القوانين الأساسية -->
+    <h2 class="section-title">⚖️ القوانين الأساسية</h2>
+    <div class="laws-grid">
+      <div class="law-card">
+        <div class="law-icon"><i class="fas fa-id-card"></i></div>
+        <div class="law-title">رخصة السياقة</div>
+        <div class="law-desc">شروط الحصول على رخصة السياقة في الجزائر: السن القانوني، الفحوصات الطبية، الاختبارات النظرية والتطبيقية.</div>
+        <a href="#" class="law-link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+      </div>
+      <div class="law-card">
+        <div class="law-icon"><i class="fas fa-traffic-light"></i></div>
+        <div class="law-title">قوانين المرور الأساسية</div>
+        <div class="law-desc">الأولويات، قواعد السير على الطرقات، استعمال الإشارات الضوئية، التجاوز والتوقف.</div>
+        <a href="#" class="law-link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+      </div>
+      <div class="law-card">
+        <div class="law-icon"><i class="fas fa-gavel"></i></div>
+        <div class="law-title">المخالفات والعقوبات</div>
+        <div class="law-desc">نقاط المخالفة، الغرامات المالية، سحب رخصة السياقة، والعقوبات الجنائية للحوادث الخطيرة.</div>
+        <a href="#" class="law-link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+      </div>
+    </div>
+
+    <!-- قسم حدود السرعة -->
+    <h2 class="section-title">📏 حدود السرعة</h2>
+    <div class="laws-grid">
+      <div class="law-card">
+        <div class="law-icon"><i class="fas fa-city"></i></div>
+        <div class="law-title">داخل المدن</div>
+        <div class="law-desc">السرعة القصوى داخل التجمعات السكنية: 50 كم/س، وفي بعض الشوارع الرئيسية 60 كم/س مع الإشارة.</div>
+        <a href="#" class="law-link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+      </div>
+      <div class="law-card">
+        <div class="law-icon"><i class="fas fa-road"></i></div>
+        <div class="law-title">الطرق السريعة</div>
+        <div class="law-desc">السرعة القصوى على الطرق السيارة: 100 كم/س للسيارات الخاصة، 90 كم/س للشاحنات.</div>
+        <a href="#" class="law-link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+      </div>
+      <div class="law-card">
+        <div class="law-icon"><i class="fas fa-tachometer-alt"></i></div>
+        <div class="law-title">طرق وطنية</div>
+        <div class="law-desc">السرعة القصوى على الطرق الوطنية: 80 كم/س للسيارات، مع مراعاة الظروف الجوية.</div>
+        <a href="#" class="law-link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+      </div>
+    </div>
+
+    <!-- قسم متطلبات المركبة -->
+    <h2 class="section-title">🔧 متطلبات المركبة</h2>
+    <div class="laws-grid">
+      <div class="law-card">
+        <div class="law-icon"><i class="fas fa-car-battery"></i></div>
+        <div class="law-title">الفحص الفني الدوري</div>
+        <div class="law-desc">إلزامية الفحص الفني للمركبات كل سنة أو سنتين حسب عمر المركبة، وشروط السلامة.</div>
+        <a href="#" class="law-link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+      </div>
+      <div class="law-card">
+        <div class="law-icon"><i class="fas fa-tools"></i></div>
+        <div class="law-title">معدات السلامة</div>
+        <div class="law-desc">حقيبة إسعافات أولية، مثلث عاكس، طفاية حريق، إطارات احتياطية، وأضواء التحذير.</div>
+        <a href="#" class="law-link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+      </div>
+      <div class="law-card">
+        <div class="law-icon"><i class="fas fa-windshield"></i></div>
+        <div class="law-title">تظليل الزجاج</div>
+        <div class="law-desc">القوانين المنظمة لتظليل الزجاج: النسب المسموح بها والعقوبات على المخالفة.</div>
+        <a href="#" class="law-link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+      </div>
+    </div>
+
+    <!-- قسم قوانين خاصة -->
+    <h2 class="section-title">🚸 قوانين خاصة ومستجدة</h2>
+    <div class="laws-grid">
+      <div class="law-card">
+        <div class="law-icon"><i class="fas fa-mobile-alt"></i></div>
+        <div class="law-title">استخدام الهاتف أثناء القيادة</div>
+        <div class="law-desc">يمنع مسك الهاتف باليد أثناء السياقة، والعقوبات المقررة (غرامة ونقاط).</div>
+        <a href="#" class="law-link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+      </div>
+      <div class="law-card">
+        <div class="law-icon"><i class="fas fa-seatbelt"></i></div>
+        <div class="law-title">حزام الأمان</div>
+        <div class="law-desc">إلزامية استعمال حزام الأمان لجميع الركاب في المقاعد الأمامية والخلفية، والعقوبات.</div>
+        <a href="#" class="law-link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+      </div>
+      <div class="law-card">
+        <div class="law-icon"><i class="fas fa-child"></i></div>
+        <div class="law-title">مقاعد الأطفال</div>
+        <div class="law-desc">إلزامية استعمال مقاعد خاصة للأطفال حسب العمر والوزن لحماية الصغار.</div>
+        <a href="#" class="law-link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+      </div>
+      <div class="law-card">
+        <div class="law-icon"><i class="fas fa-wine-bottle"></i></div>
+        <div class="law-title">القيادة تحت تأثير الكحول</div>
+        <div class="law-desc">الحد الأقصى المسموح به من الكحول، العقوبات الصارمة والغرامات وسحب الرخصة.</div>
+        <a href="#" class="law-link">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer (نفس التصميم) -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>عن الموقع</h3>
+          <p><i class="fas fa-flag-checkered"></i> أول منصة جزائرية متكاملة لتعليم السياقة، تجمع بين الإشارات، القوانين، النصائح والاختبارات.</p>
+          <p><i class="fas fa-map-pin"></i> الجزائر - جميع الولايات</p>
+          <p><i class="fas fa-envelope"></i> contact@driv-edu.dz</p>
+        </div>
+        <div class="footer-col">
+          <h3>روابط مفيدة</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-left"></i> إشارات المرور</a></li>
+            <li><a href="#"><i class="fas fa-chevron-left"></i> قانون المرور الجديد</a></li>
+            <li><a href="#"><i class="fas fa-chevron-left"></i> نصائح الأمان على الطريق</a></li>
+            <li><a href="#"><i class="fas fa-chevron-left"></i> اختبارات رخصة السياقة</a></li>
+            <li><a href="#"><i class="fas fa-chevron-left"></i> مدارس السياقة المعتمدة</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>تواصل معنا</h3>
+          <p><i class="fas fa-phone"></i> 0550 12 34 56 (الجزائر العاصمة)</p>
+          <p><i class="fas fa-phone"></i> 0540 98 76 54 (وهران)</p>
+          <p><i class="fas fa-clock"></i> أيام العمل: 8:00 – 19:00</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 مدارس السياقة الجزائرية. جميع الحقوق محفوظة. تصميم وبرمجة بإتقان
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // تأثير تغيير الهيدر عند التمرير
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 100) {
+        header.style.boxShadow = '0 6px 18px rgba(0,0,0,0.1)';
+        header.style.background = 'rgba(255,255,255,0.98)';
+      } else {
+        header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
+        header.style.background = '#ffffff';
+      }
+    });
+  </script>
+</body>
+</html>

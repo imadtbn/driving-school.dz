@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منصة وعي | تعليم قوانين المرور</title>
+  <!-- خطوط عربية حديثة -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (مجاني) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* متغيرات الألوان */
+    :root {
+      --primary: #0a4d7c;
+      --primary-dark: #063b5e;
+      --secondary: #f9b81b;
+      --light-bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-dark: #1e293b;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+      --shadow-hover: 0 20px 30px -10px rgba(0,30,60,0.15);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Tajawal', 'Cairo', sans-serif;
+      background-color: #f1f5f9;
+      color: var(--text-dark);
+      line-height: 1.5;
+    }
+
+    /* حاوية رئيسية */
+    .container {
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* الهيدر */
+    header {
+      background-color: var(--card-bg);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 15px 0;
+    }
+
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: var(--secondary);
+      font-weight: 500;
+      font-size: 1rem;
+      display: block;
+      margin-top: -5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: 0.2s;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a.active {
+      color: var(--primary);
+      border-bottom: 3px solid var(--secondary);
+      padding-bottom: 5px;
+    }
+
+    .mobile-menu {
+      display: none;
+      font-size: 1.8rem;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* hero section */
+    .hero {
+      background: linear-gradient(135deg, #e6f0fa 0%, #d4e4f5 100%);
+      border-radius: 30px;
+      margin: 40px 0;
+      padding: 50px 40px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hero-text h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      line-height: 1.3;
+    }
+
+    .hero-text p {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 20px 0;
+    }
+
+    .hero-btn {
+      background-color: var(--secondary);
+      color: #1e293b;
+      padding: 15px 35px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 1.2rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(249,184,27,0.3);
+      transition: 0.2s;
+    }
+
+    .hero-btn:hover {
+      background-color: #e5a90f;
+      transform: scale(1.02);
+    }
+
+    /* بطاقات الإحصائيات */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+
+    .stat-card {
+      background-color: var(--card-bg);
+      padding: 30px 15px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .stat-card i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .stat-card h3 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+
+    .stat-card p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    /* عناوين رئيسية */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin: 40px 0 20px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 70%;
+      height: 4px;
+      background-color: var(--secondary);
+      border-radius: 5px;
+      margin-top: 8px;
+    }
+
+    /* شبكة البطاقات (إشارات, اختبارات) */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .signal-card {
+      background-color: var(--card-bg);
+      border-radius: 20px;
+      padding: 20px 10px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .signal-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+    }
+
+    .signal-img {
+      width: 100px;
+      height: 100px;
+      background-color: #e2e8f0;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: 800;
+      color: #1e293b;
+      border: 3px solid white;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    .signal-img.triangle {
+      border-radius: 20% 80% 50% 50% / 30% 40% 60% 70%;
+    }
+
+    .signal-category {
+      background-color: #e2f0fd;
+      color: var(--primary-dark);
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: inline-block;
+      margin: 10px 0 5px;
+    }
+
+    .signal-name {
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    /* شريط الفلترة المتقدم */
+    .filter-section {
+      background-color: var(--card-bg);
+      border-radius: 25px;
+      padding: 20px;
+      margin: 30px 0;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      align-items: center;
+      margin: 15px 0;
+    }
+
+    .filter-chip {
+      background-color: #eef2f6;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .filter-chip:hover, .filter-chip.active {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .filter-chip i {
+      margin-left: 8px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background-color: #f1f5f9;
+      border-radius: 50px;
+      padding: 5px 15px;
+      flex: 1 1 250px;
+      border: 1px solid var(--border);
+    }
+
+    .search-box i {
+      color: var(--text-muted);
+      margin-left: 10px;
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      padding: 12px 0;
+      font-size: 1rem;
+      width: 100%;
+      outline: none;
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    /* فيديوهات / موارد */
+    .video-card {
+      background-color: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .video-thumb {
+      height: 140px;
+      background-color: #b0c4de;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+    }
+
+    .video-info {
+      padding: 15px;
+    }
+
+    .video-info h4 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      background-color: var(--secondary);
+      color: #1e293b;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      display: inline-block;
+    }
+
+    /* تذييل */
+    footer {
+      background-color: #0f2b3d;
+      color: #cbd5e1;
+      margin-top: 70px;
+      padding: 50px 0 20px;
+      border-radius: 50px 50px 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    .footer-col h3 {
+      color: white;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+
+    .footer-col a {
+      color: #cbd5e1;
+      text-decoration: none;
+      display: block;
+      margin: 10px 0;
+    }
+
+    .footer-col a:hover {
+      color: var(--secondary);
+    }
+
+    .copyright {
+      text-align: center;
+      border-top: 1px solid #334155;
+      padding-top: 20px;
+      margin-top: 30px;
+      font-size: 0.9rem;
+    }
+
+    /* تجاوب للهواتف */
+    @media (max-width: 800px) {
+      .nav-links {
+        display: none;
+      }
+      .mobile-menu {
+        display: block;
+      }
+      .hero-text h2 {
+        font-size: 2rem;
+      }
+      .filter-row {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 10px;
+      }
+      .filter-chip {
+        white-space: nowrap;
+      }
+    }
+
+    /* RTL ضبط أيقونات */
+    .fa-chevron-right {
+      transform: scale(-1);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container navbar">
+      <div class="logo">
+        <h1>وعي <span>للسياقة الآمنة</span></h1>
+      </div>
+      <div class="nav-links">
+        <a href="#" class="active">الرئيسية</a>
+        <a href="#">الإشارات</a>
+        <a href="#">القوانين</a>
+        <a href="#">الاختبارات</a>
+        <a href="#">الموارد</a>
+        <a href="#">اتصل بنا</a>
+      </div>
+      <div class="mobile-menu">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- مقدمة + إحصائيات سريعة -->
+    <section class="hero">
+      <div class="hero-text">
+        <h2>تعلم قوانين المرور<br>بأسلوب عصري وتفاعلي</h2>
+        <p>منصة متكاملة تضم جميع إشارات المرور، القوانين، اختبارات نظرية، ومقاطع فيديو توضيحية باللغة العربية.</p>
+        <button class="hero-btn">ابدأ الرحلة <i class="fas fa-arrow-left"></i></button>
+      </div>
+      <div class="hero-img">
+        <i class="fas fa-traffic-light" style="font-size: 10rem; color: #0a4d7c; opacity: 0.6;"></i>
+      </div>
+    </section>
+
+    <!-- إحصائيات سريعة -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <i class="fas fa-road"></i>
+        <h3>+250</h3>
+        <p>إشارة مرورية</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-gavel"></i>
+        <h3>120</h3>
+        <p>مادة قانونية</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-users"></i>
+        <h3>50k</h3>
+        <p>مستخدم نشط</p>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-video"></i>
+        <h3>70+</h3>
+        <p>فيديو تعليمي</p>
+      </div>
+    </div>
+
+    <!-- آخر الإشارات المضافة -->
+    <h2 class="section-title">آخر الإشارات المضافة</h2>
+    <div class="cards-grid">
+      <div class="signal-card">
+        <div class="signal-img" style="background-color:#fed7d7; color:#9b2c2c;">قف</div>
+        <span class="signal-category"><i class="fas fa-ban"></i> إشارة منع</span>
+        <div class="signal-name">قف - STOP</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-img triangle" style="background-color:#feebc8; color:#b45309;">!</div>
+        <span class="signal-category"><i class="fas fa-exclamation-triangle"></i> تحذير</span>
+        <div class="signal-name">منعطف خطر</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-img" style="background-color:#c6f6d5; color:#276749;">←</div>
+        <span class="signal-category"><i class="fas fa-arrow-circle-right"></i> إلزام</span>
+        <div class="signal-name">اتجاه إجباري</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-img" style="background-color:#bee3f8; color:#2c5282;">P</div>
+        <span class="signal-category"><i class="fas fa-parking"></i> إرشاد</span>
+        <div class="signal-name">موقف سيارات</div>
+      </div>
+    </div>
+
+    <!-- قسم الإشارات مع فلترة متقدم (نموذج) -->
+    <h2 class="section-title">استعراض الإشارات</h2>
+    <div class="filter-section">
+      <div class="filter-row">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="ابحث عن إشارة (اسم، رمز، تصنيف...)">
+        </div>
+        <div class="filter-chip active"><i class="fas fa-list"></i> الكل</div>
+        <div class="filter-chip"><i class="fas fa-ban"></i> منع</div>
+        <div class="filter-chip"><i class="fas fa-exclamation-triangle"></i> تحذير</div>
+        <div class="filter-chip"><i class="fas fa-arrow-circle-right"></i> إلزام</div>
+        <div class="filter-chip"><i class="fas fa-info-circle"></i> إرشاد</div>
+      </div>
+      <div class="filter-row">
+        <span style="font-weight:600; margin-left:10px;">الشكل:</span>
+        <div class="filter-chip">دائري</div>
+        <div class="filter-chip">مثلث</div>
+        <div class="filter-chip">مربع</div>
+        <div class="filter-chip">مستطيل</div>
+        <span style="font-weight:600; margin-right:20px; margin-left:10px;">اللون:</span>
+        <div class="filter-chip">أحمر</div>
+        <div class="filter-chip">أزرق</div>
+        <div class="filter-chip">أصفر</div>
+        <div class="filter-chip">أخضر</div>
+      </div>
+    </div>
+
+    <!-- شبكة إشارات (مثال) -->
+    <div class="cards-grid">
+      <div class="signal-card">
+        <div class="signal-img" style="background-color:#fed7d7;">🚫</div>
+        <span class="signal-category">منع</span>
+        <div class="signal-name">ممنوع الدخول</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-img triangle" style="background-color:#feebc8;">⚠️</div>
+        <span class="signal-category">تحذير</span>
+        <div class="signal-name">مطب صناعي</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-img" style="background-color:#c6f6d5;">🔄</div>
+        <span class="signal-category">إلزام</span>
+        <div class="signal-name">دوار إجباري</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-img" style="background-color:#bee3f8;">⛽</div>
+        <span class="signal-category">خدمات</span>
+        <div class="signal-name">محطة وقود</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-img" style="background-color:#e9d8fd;">🚸</div>
+        <span class="signal-category">تحذير</span>
+        <div class="signal-name">مدرسة</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-img" style="background-color:#fbb6ce;">🚳</div>
+        <span class="signal-category">منع</span>
+        <div class="signal-name">ممنوع الدراجات</div>
+      </div>
+    </div>
+
+    <!-- اختبارات سريعة مقترحة -->
+    <h2 class="section-title">اختبارات سريعة مقترحة</h2>
+    <div class="cards-grid">
+      <div class="signal-card" style="background: linear-gradient(145deg, #ffffff, #f1f5f9);">
+        <i class="fas fa-car" style="font-size: 3rem; color: var(--primary);"></i>
+        <h3 style="margin: 10px 0;">اختبار السياقة الخاصة</h3>
+        <p>20 سؤال • متوسطة</p>
+        <div style="margin-top:15px;"><span class="badge">40% أكملوا</span></div>
+      </div>
+      <div class="signal-card" style="background: linear-gradient(145deg, #ffffff, #f1f5f9);">
+        <i class="fas fa-motorcycle" style="font-size: 3rem; color: var(--primary);"></i>
+        <h3 style="margin: 10px 0;">رخصة الدراجات</h3>
+        <p>15 سؤال • سهل</p>
+        <div style="margin-top:15px;"><span class="badge">جديد</span></div>
+      </div>
+      <div class="signal-card" style="background: linear-gradient(145deg, #ffffff, #f1f5f9);">
+        <i class="fas fa-truck" style="font-size: 3rem; color: var(--primary);"></i>
+        <h3 style="margin: 10px 0;">شاحنات وحافلات</h3>
+        <p>30 سؤال • صعب</p>
+        <div style="margin-top:15px;"><span class="badge">تحدي</span></div>
+      </div>
+      <div class="signal-card" style="background: linear-gradient(145deg, #ffffff, #f1f5f9);">
+        <i class="fas fa-traffic-light" style="font-size: 3rem; color: var(--primary);"></i>
+        <h3 style="margin: 10px 0;">الإشارات فقط</h3>
+        <p>10 أسئلة • بالصور</p>
+        <div style="margin-top:15px;"><span class="badge">سريع</span></div>
+      </div>
+    </div>
+
+    <!-- فيديوهات تعليمية مميزة -->
+    <h2 class="section-title">فيديوهات تعليمية</h2>
+    <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+      <div class="video-card">
+        <div class="video-thumb"><i class="fas fa-play-circle"></i></div>
+        <div class="video-info">
+          <h4>شرح إشارات المنع كاملة</h4>
+          <span class="badge">10 دقائق</span>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb"><i class="fas fa-play-circle"></i></div>
+        <div class="video-info">
+          <h4>أولويات المرور في التقاطعات</h4>
+          <span class="badge">8 دقائق</span>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb"><i class="fas fa-play-circle"></i></div>
+        <div class="video-info">
+          <h4>كيف تقرأ الإشارات الضوئية</h4>
+          <span class="badge">5 دقائق</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- موارد PDF -->
+    <h2 class="section-title">موارد للتحميل</h2>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <div style="background-color: var(--card-bg); padding: 20px; border-radius: 20px; display: flex; align-items: center; gap: 15px;">
+        <i class="fas fa-file-pdf" style="font-size: 3rem; color: #d32f2f;"></i>
+        <div><strong>كتيب الإشارات الأساسي</strong><br>PDF • 2.5 م.ب</div>
+      </div>
+      <div style="background-color: var(--card-bg); padding: 20px; border-radius: 20px; display: flex; align-items: center; gap: 15px;">
+        <i class="fas fa-file-pdf" style="font-size: 3rem; color: #d32f2f;"></i>
+        <div><strong>ملخص قانون المرور</strong><br>PDF • 1.8 م.ب</div>
+      </div>
+      <div style="background-color: var(--card-bg); padding: 20px; border-radius: 20px; display: flex; align-items: center; gap: 15px;">
+        <i class="fas fa-infographic" style="font-size: 3rem; color: #0a4d7c;"></i>
+        <div><strong>إنفوجرافيك: أولويات المرور</strong><br>JPG • عالي الدقة</div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>وعي</h3>
+          <p>منصة عربية رائدة لتعليم قوانين المرور وإشارات الطرق بطريقة عصرية وتفاعلية.</p>
+        </div>
+        <div class="footer-col">
+          <h3>روابط سريعة</h3>
+          <a href="#">الإشارات</a>
+          <a href="#">القوانين</a>
+          <a href="#">الاختبارات</a>
+          <a href="#">الموارد</a>
+        </div>
+        <div class="footer-col">
+          <h3>الدعم</h3>
+          <a href="#">اتصل بنا</a>
+          <a href="#">الأسئلة الشائعة</a>
+          <a href="#">سياسة الخصوصية</a>
+        </div>
+        <div class="footer-col">
+          <h3>تابعنا</h3>
+          <div style="display: flex; gap: 15px;">
+            <i class="fab fa-facebook fa-2x"></i>
+            <i class="fab fa-twitter fa-2x"></i>
+            <i class="fab fa-youtube fa-2x"></i>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        © 2026 منصة وعي – جميع الحقوق محفوظة
+      </div>
+    </div>
+  </footer>
+
+  <!-- أيقونة الوضع الليلي (تجريبي بسيط) -->
+  <div style="position: fixed; bottom: 20px; left: 20px; background: white; border-radius: 50px; padding: 12px; box-shadow: var(--shadow); cursor: pointer;">
+    <i class="fas fa-moon"></i>
+  </div>
+</body>
+</html>

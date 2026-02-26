@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ابحث عن أقرب مدرسة سياقة | مدارس السياقة الجزائرية</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f9fafc;
+      color: #1e293b;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* header (مطابق للصفحات السابقة) */
+    .header {
+      background-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    .header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f3b5e;
+    }
+
+    .logo i {
+      color: #f5b041;
+      font-size: 2rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 1.5rem;
+      font-weight: 600;
+    }
+
+    .nav-menu a {
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-menu a:hover {
+      color: #0f3b5e;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #f5b041;
+      transition: width 0.3s;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    .contact-btn {
+      background-color: #0f3b5e;
+      color: white !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .contact-btn:hover {
+      background-color: #1e4f73;
+      transform: scale(1.05);
+    }
+
+    /* رأس فرعي للصفحة */
+    .page-header {
+      background: linear-gradient(135deg, #0f3b5e 0%, #1b4d75 100%);
+      color: white;
+      padding: 3rem 0;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* شريط البحث والموقع */
+    .search-section {
+      background: white;
+      border-radius: 60px;
+      padding: 0.8rem 1.5rem;
+      box-shadow: 0 10px 25px rgba(0,20,40,0.08);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .location-btn {
+      background: #f5b041;
+      color: #0f3b5e;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .location-btn:hover {
+      background: #f39c12;
+      transform: scale(1.05);
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      min-width: 250px;
+      background: #f1f5f9;
+      border-radius: 40px;
+      padding: 0.3rem 1rem;
+    }
+
+    .search-box i {
+      color: #94a3b8;
+      font-size: 1.2rem;
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      padding: 0.8rem 0.5rem;
+      width: 100%;
+      font-family: 'Cairo', sans-serif;
+      font-size: 1rem;
+    }
+
+    .search-box input:focus {
+      outline: none;
+    }
+
+    .filter-btn {
+      background: #eef2f6;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: #0f3b5e;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .filter-btn:hover {
+      background: #f5b041;
+    }
+
+    /* المحتوى الرئيسي: قائمة المدارس والخريطة */
+    .schools-map-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    /* قائمة المدارس */
+    .schools-list {
+      background: white;
+      border-radius: 40px;
+      padding: 1.8rem;
+      box-shadow: 0 15px 30px rgba(0,20,40,0.05);
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .list-title {
+      font-size: 1.6rem;
+      color: #0f3b5e;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .school-card {
+      background: #f8fafc;
+      border-radius: 30px;
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s;
+      border-right: 4px solid transparent;
+    }
+
+    .school-card:hover {
+      transform: translateX(-5px);
+      border-right-color: #f5b041;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+    }
+
+    .school-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0f3b5e;
+      margin-bottom: 0.25rem;
+    }
+
+    .school-address {
+      color: #4b5563;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .school-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 0.75rem 0;
+    }
+
+    .phone-number {
+      background: #e2e8f0;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      direction: ltr;
+    }
+
+    .phone-number i {
+      color: #f5b041;
+    }
+
+    .distance {
+      background: #0f3b5e;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .direction-btn {
+      background: transparent;
+      border: 2px solid #f5b041;
+      color: #f5b041;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .direction-btn:hover {
+      background: #f5b041;
+      color: #0f3b5e;
+    }
+
+    /* الخريطة (محاكاة) */
+    .map-wrapper {
+      background: white;
+      border-radius: 40px;
+      padding: 1.5rem;
+      box-shadow: 0 15px 30px rgba(0,20,40,0.05);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .map-title {
+      font-size: 1.4rem;
+      color: #0f3b5e;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .map-placeholder {
+      background: #d9e2ec;
+      border-radius: 30px;
+      height: 400px;
+      position: relative;
+      overflow: hidden;
+      background-image: url('https://i.imgur.com/9qXjYqN.jpg'); /* صورة خريطة افتراضية (مكان) */
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .map-overlay {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(4px);
+      padding: 1.5rem;
+      border-radius: 60px;
+      text-align: center;
+      color: #0f3b5e;
+      font-weight: 600;
+    }
+
+    .map-overlay i {
+      font-size: 3rem;
+      color: #f5b041;
+      margin-bottom: 0.5rem;
+    }
+
+    /* إشعار المحاكاة */
+    .simulation-note {
+      background: #fef9e7;
+      border-right: 4px solid #f5b041;
+      padding: 1rem;
+      border-radius: 20px;
+      margin: 2rem 0;
+      font-size: 1rem;
+      color: #7b5e1c;
+    }
+
+    /* تذييل الصفحة (مطابق) */
+    .footer {
+      background-color: #0f3b5e;
+      color: #e2e8f0;
+      padding: 3rem 0 2rem;
+      border-top: 5px solid #f5b041;
+      margin-top: 4rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .footer-col h3 {
+      color: white;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .footer-col h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 60px;
+      height: 3px;
+      background-color: #f5b041;
+    }
+
+    .footer-col p {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .footer-col i {
+      color: #f5b041;
+      font-size: 1.2rem;
+      width: 25px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a:hover {
+      color: #f5b041;
+      margin-right: 5px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      background-color: rgba(255,255,255,0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .social-links a:hover {
+      background-color: #f5b041;
+      color: #0f3b5e;
+      transform: scale(1.1);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #295a7a;
+      color: #b0c4d9;
+      font-size: 0.95rem;
+    }
+
+    /* استجابة */
+    @media (max-width: 992px) {
+      .schools-map-container {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .header .container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .page-header h1 { font-size: 2.2rem; }
+      .search-section {
+        border-radius: 30px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .location-btn {
+        justify-content: center;
+      }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .footer-col h3::after { right: 50%; transform: translateX(50%); }
+      .footer-col p { justify-content: center; }
+      .social-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header (نفس التصميم) -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <i class="fas fa-car-side"></i>
+        <span>مدرسة السياقة الجزائرية</span>
+      </div>
+      <nav class="nav-menu">
+        <a href="#">الرئيسية</a>
+        <a href="#">إشارات المرور</a>
+        <a href="#">قوانين السياقة</a>
+        <a href="#">نصائح الأمان</a>
+        <a href="#">اختبارات</a>
+      </nav>
+      <a href="#" class="contact-btn"><i class="fas fa-phone-alt"></i> اتصل بنا</a>
+    </div>
+  </header>
+
+  <!-- عنوان الصفحة -->
+  <section class="page-header">
+    <div class="container">
+      <h1>ابحث عن أقرب مدرسة لتعليم السياقة</h1>
+      <p>اعثر على مدارس السياقة القريبة من موقعك، شاهد أرقام الهاتف، واحصل على الاتجاهات</p>
+    </div>
+  </section>
+
+  <!-- محتوى الصفحة -->
+  <div class="container">
+    <!-- شريط البحث والموقع -->
+    <div class="search-section">
+      <button class="location-btn" id="useLocationBtn"><i class="fas fa-location-dot"></i> استخدم موقعي</button>
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="ابحث عن مدرسة، مدينة، أو حي..." id="searchInput">
+      </div>
+      <button class="filter-btn"><i class="fas fa-sliders-h"></i></button>
+    </div>
+
+    <!-- المحتوى الرئيسي: قائمة + خريطة -->
+    <div class="schools-map-container">
+      <!-- قائمة المدارس -->
+      <div class="schools-list" id="schoolsList">
+        <h2 class="list-title"><i class="fas fa-school" style="color: #f5b041;"></i> مدارس قريبة منك</h2>
+        <div id="schoolsContainer">
+          <!-- يتم تعبئتها عبر JavaScript -->
+        </div>
+        <div class="simulation-note" id="simulationNote">
+          <i class="fas fa-info-circle"></i> هذه محاكاة لبيانات وهمية. في التطبيق الفعلي، سيتم تحديد موقعك وعرض المدارس الحقيقية.
+        </div>
+      </div>
+
+      <!-- الخريطة -->
+      <div class="map-wrapper">
+        <h3 class="map-title"><i class="fas fa-map" style="color: #f5b041;"></i> الخريطة التفاعلية</h3>
+        <div class="map-placeholder" id="mapPlaceholder">
+          <div class="map-overlay">
+            <i class="fas fa-map-marked-alt"></i>
+            <p>خريطة تفاعلية<br><small>انقر على مدرسة لعرض موقعها</small></p>
+            <p id="mapCoords" style="font-size:0.9rem;">الموقع الحالي: غير محدد</p>
+          </div>
+        </div>
+        <p style="margin-top:1rem; color:#4b5563; font-size:0.95rem;"><i class="fas fa-info-circle"></i> يمكنك تكوين مسار إلى أي مدرسة باستخدام زر "الاتجاهات".</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer (نفس التصميم) -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>عن الموقع</h3>
+          <p><i class="fas fa-flag-checkered"></i> أول منصة جزائرية متكاملة لتعليم السياقة، تجمع بين الإشارات، القوانين، النصائح والاختبارات.</p>
+          <p><i class="fas fa-map-pin"></i> الجزائر - جميع الولايات</p>
+          <p><i class="fas fa-envelope"></i> contact@driv-edu.dz</p>
+        </div>
+        <div class="footer-col">
+          <h3>روابط مفيدة</h3>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-left"></i> إشارات المرور</a></li>
+            <li><a href="#"><i class="fas fa-chevron-left"></i> قانون المرور الجديد</a></li>
+            <li><a href="#"><i class="fas fa-chevron-left"></i> نصائح الأمان على الطريق</a></li>
+            <li><a href="#"><i class="fas fa-chevron-left"></i> اختبارات رخصة السياقة</a></li>
+            <li><a href="#"><i class="fas fa-chevron-left"></i> مدارس السياقة المعتمدة</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>تواصل معنا</h3>
+          <p><i class="fas fa-phone"></i> 0550 12 34 56 (الجزائر العاصمة)</p>
+          <p><i class="fas fa-phone"></i> 0540 98 76 54 (وهران)</p>
+          <p><i class="fas fa-clock"></i> أيام العمل: 8:00 – 19:00</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 مدارس السياقة الجزائرية. جميع الحقوق محفوظة. تصميم وبرمجة بإتقان
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // بيانات وهمية لمدارس السياقة (محاكاة)
+      const schoolsData = [
+        {
+          name: 'مدرسة الأمان لتعليم السياقة',
+          address: 'الجزائر الوسطى، شارع ديدوش مراد',
+          phones: ['0550 12 12 12', '023 45 67 89'],
+          lat: 36.775,
+          lng: 3.060,
+          distance: 1.2 // كم
+        },
+        {
+          name: 'مدرسة النجاح للسياقة',
+          address: 'حسين داي، قرب محطة القطار',
+          phones: ['0551 34 34 34', '023 98 76 54'],
+          lat: 36.760,
+          lng: 3.090,
+          distance: 2.5
+        },
+        {
+          name: 'مدرسة الحديثة لتعليم السياقة',
+          address: 'باب الزوار، قرب الجامعة',
+          phones: ['0552 56 78 90', '023 22 33 44'],
+          lat: 36.730,
+          lng: 3.120,
+          distance: 3.8
+        },
+        {
+          name: 'مدرسة اليقين لتعليم السياقة',
+          address: 'القبة، شارع فلسطين',
+          phones: ['0553 98 76 54', '023 11 22 33'],
+          lat: 36.740,
+          lng: 3.045,
+          distance: 4.0
+        },
+        {
+          name: 'مدرسة الثقة للسياقة',
+          address: 'بوزريعة، قرب مستشفى مصطفى باشا',
+          phones: ['0554 67 89 01', '023 55 66 77'],
+          lat: 36.785,
+          lng: 3.015,
+          distance: 5.1
+        },
+        {
+          name: 'مدرسة السلام لتعليم السياقة',
+          address: 'الحراش، شارع محمد بوضياف',
+          phones: ['0555 12 34 56', '023 44 55 66'],
+          lat: 36.725,
+          lng: 3.135,
+          distance: 6.3
+        }
+      ];
+
+      // موقع المستخدم الافتراضي (محاكاة)
+      let userLocation = { lat: 36.775, lng: 3.060 }; // وسط الجزائر
+
+      // ترتيب المدارس حسب المسافة
+      function sortSchoolsByDistance() {
+        return schoolsData.map(school => {
+          // حساب المسافة (بسيط) إذا لم تكن موجودة - ولكن لدينا distances افتراضية، لكن يمكن إعادة حسابها
+          return school;
+        }).sort((a, b) => a.distance - b.distance);
+      }
+
+      // عرض المدارس في القائمة
+      function renderSchools() {
+        const container = document.getElementById('schoolsContainer');
+        const sorted = sortSchoolsByDistance();
+        let html = '';
+        sorted.forEach((school, index) => {
+          html += `
+            <div class="school-card" data-index="${index}">
+              <div class="school-name">${school.name}</div>
+              <div class="school-address"><i class="fas fa-map-pin" style="color:#f5b041;"></i> ${school.address}</div>
+              <div class="school-contact">
+                ${school.phones.map(p => `<span class="phone-number"><i class="fas fa-phone"></i> ${p}</span>`).join('')}
+                <span class="distance"><i class="fas fa-road"></i> ${school.distance} كم</span>
+              </div>
+              <button class="direction-btn" data-lat="${school.lat}" data-lng="${school.lng}" data-name="${school.name}"><i class="fas fa-route"></i> الاتجاهات</button>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+
+        // إضافة event listeners لأزرار الاتجاهات
+        document.querySelectorAll('.direction-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const name = btn.dataset.name;
+            alert(`تم محاكاة توجيه المسار من موقعك الحالي (${userLocation.lat}, ${userLocation.lng}) إلى ${name}. في التطبيق الحقيسي سيتم فتح خرائط Google مع المسار.`);
+          });
+        });
+      }
+
+      // تحديث موقع المستخدم (محاكاة)
+      document.getElementById('useLocationBtn').addEventListener('click', () => {
+        // محاكاة تحديد الموقع (نغير قليلاً الموقع)
+        userLocation = { lat: 36.760, lng: 3.080 };
+        // تحديث عرض الإحداثيات في الخريطة
+        document.getElementById('mapCoords').innerText = `الموقع الحالي: ${userLocation.lat}, ${userLocation.lng}`;
+        // تحديث المسافات (محاكاة بسيطة)
+        schoolsData.forEach(school => {
+          // حساب تقريبي للمسافة (فرق خطوط) فقط للعرض
+          const dist = Math.sqrt(Math.pow(school.lat - userLocation.lat, 2) + Math.pow(school.lng - userLocation.lng, 2)) * 111; // تقريبي
+          school.distance = Math.round(dist * 10) / 10;
+        });
+        renderSchools();
+        alert('تم تحديث موقعك الحالي (محاكاة). سيتم إعادة ترتيب المدارس حسب القرب.');
+      });
+
+      // البحث (فلترة بسيطة)
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        const term = e.target.value.trim().toLowerCase();
+        const cards = document.querySelectorAll('.school-card');
+        cards.forEach(card => {
+          const name = card.querySelector('.school-name').innerText.toLowerCase();
+          const address = card.querySelector('.school-address').innerText.toLowerCase();
+          if (name.includes(term) || address.includes(term)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+
+      // تأثير تغيير الهيدر عند التمرير
+      window.addEventListener('scroll', function() {
+        const header = document.querySelector('.header');
+        if (window.scrollY > 100) {
+          header.style.boxShadow = '0 6px 18px rgba(0,0,0,0.1)';
+          header.style.background = 'rgba(255,255,255,0.98)';
+        } else {
+          header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
+          header.style.background = '#ffffff';
+        }
+      });
+
+      // التهيئة
+      renderSchools();
+      document.getElementById('mapCoords').innerText = `الموقع الحالي: ${userLocation.lat}, ${userLocation.lng}`;
+    })();
+  </script>
+</body>
+</html>
