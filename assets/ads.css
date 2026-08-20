@@ -1,0 +1,116 @@
+/*
+ * Shared AdSense presentation layer
+ * Keeps ad units visually quiet, responsive and separated from page content.
+ */
+.ad-slot {
+  --ad-accent: #f5b041;
+  --ad-border: rgba(15, 59, 94, 0.10);
+  position: relative;
+  width: min(100%, 1200px);
+  min-height: 96px;
+  margin: clamp(1.75rem, 4vw, 3.25rem) auto;
+  padding: 0.75rem clamp(0.5rem, 2vw, 1rem);
+  border: 1px solid var(--ad-border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 8px 24px rgba(15, 59, 94, 0.045);
+  text-align: center;
+  overflow: hidden;
+  isolation: isolate;
+  contain: layout paint;
+}
+
+.ad-slot::before {
+  content: "إعلان";
+  position: absolute;
+  top: 0.35rem;
+  right: 0.65rem;
+  z-index: 1;
+  color: #64748b;
+  font: 500 0.68rem/1 'Cairo', sans-serif;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+.ad-slot .adsbygoogle {
+  display: block;
+  width: 100%;
+  min-height: 72px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ad-slot--fluid {
+  min-height: 120px;
+}
+
+.ad-slot--display {
+  min-height: 110px;
+}
+
+.ad-slot--article {
+  min-height: 130px;
+  max-width: 860px;
+}
+
+.ad-slot--multiplex {
+  min-height: 180px;
+}
+
+.ad-slot.is-loading {
+  background: linear-gradient(90deg, rgba(241, 245, 249, 0.75), rgba(255, 255, 255, 0.9), rgba(241, 245, 249, 0.75));
+  background-size: 200% 100%;
+  animation: ad-skeleton 1.8s ease-in-out infinite;
+}
+
+.ad-slot.is-loaded {
+  animation: ad-reveal 0.35s ease-out both;
+}
+
+.ad-slot.is-empty {
+  min-height: 0;
+  padding-block: 0;
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+.ad-slot.is-empty::before {
+  display: none;
+}
+
+@keyframes ad-skeleton {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@keyframes ad-reveal {
+  from { opacity: 0.45; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .ad-slot {
+    min-height: 84px;
+    margin-block: 1.5rem;
+    border-radius: 14px;
+    padding-inline: 0.35rem;
+  }
+
+  .ad-slot--fluid,
+  .ad-slot--display,
+  .ad-slot--article {
+    min-height: 100px;
+  }
+
+  .ad-slot--multiplex {
+    min-height: 150px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ad-slot.is-loading,
+  .ad-slot.is-loaded {
+    animation: none;
+  }
+}
