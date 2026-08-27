@@ -10,10 +10,10 @@
   window.__siteTagsLoaded = true;
 
   const config = Object.freeze({
-    // ضع هنا معرف حاوية Google Tag Manager: GTM-XXXXXXX
-    gtmId: 'xxxxxxxx',
-    // ضع هنا معرف قياس GA4. لا يتم تشغيل gtag مباشرة؛ التشغيل يكون عبر GTM.
-    ga4MeasurementId: 'xxxxxxxx',
+    // معرف حاوية Google Tag Manager المفعّل للموقع.
+    gtmId: 'GTM-TQDB7NL9',
+    // معرف قياس GA4 المفعّل عبر Google tag داخل GTM.
+    ga4MeasurementId: 'G-HCLS25SLPP',
     // معرف ناشر AdSense متوفر في إعدادات الموقع.
     adsenseClient: 'ca-pub-5656416032906373',
     // ضع هنا معرف مشروع Microsoft Clarity: xxxxxxxxxx
