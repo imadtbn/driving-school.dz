@@ -12,8 +12,11 @@
   const config = Object.freeze({
     // معرف حاوية Google Tag Manager المفعّل للموقع.
     gtmId: 'GTM-NVG6XQFQ',
-    // معرف قياس GA4 المفعّل عبر Google tag داخل GTM.
+    // معرف قياس GA4 المفعّل للموقع.
     ga4MeasurementId: 'G-ZCQ9MK5JCS',
+    // مسار احتياطي لاكتشاف Google tag مباشرة عند عدم ضبط Google tag داخل GTM.
+    // بعد ضبط Google tag داخل GTM يمكن جعله false لتفادي page_view مزدوج.
+    directGa4Fallback: true,
     // معرف ناشر AdSense متوفر في إعدادات الموقع.
     adsenseClient: 'ca-pub-5656416032906373',
     // ضع هنا معرف مشروع Microsoft Clarity: xxxxxxxxxx
@@ -21,7 +24,7 @@
   });
 
   window.__siteTagsConfig = config;
-  const state = { gtm: false, adsense: false, clarity: false };
+  const state = { gtm: false, ga4: false, adsense: false, clarity: false };
   const isMissingId = (value) => !value || /^x+$/i.test(value.replace(/[-_\s]/g, ''));
 
   const loadScriptOnce = (src, onload) => {
@@ -67,6 +70,19 @@
     window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
     state.gtm = true;
     loadScriptOnce(`https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(config.gtmId)}`);
+  };
+
+  const loadDirectGa4Fallback = () => {
+    if (!config.directGa4Fallback || state.ga4 || isMissingId(config.ga4MeasurementId)) return;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function (...args) {
+      window.dataLayer.push(args);
+    };
+    window.gtag('js', new Date());
+    window.gtag('config', config.ga4MeasurementId);
+    state.ga4 = true;
+    loadScriptOnce(`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(config.ga4MeasurementId)}`);
   };
 
   const syncAdContainer = (block) => {
@@ -160,6 +176,7 @@
   };
 
   loadGtm();
+  loadDirectGa4Fallback();
   window.addEventListener('load', () => {
     runWhenIdle(loadAdsense, 2500);
     runWhenIdle(loadClarity, 5000);
