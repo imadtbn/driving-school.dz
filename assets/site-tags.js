@@ -11,9 +11,9 @@
 
   const config = Object.freeze({
     // معرف حاوية Google Tag Manager المفعّل للموقع.
-    gtmId: 'GTM-TQDB7NL9',
+    gtmId: 'GTM-NVG6XQFQ',
     // معرف قياس GA4 المفعّل عبر Google tag داخل GTM.
-    ga4MeasurementId: 'G-HCLS25SLPP',
+    ga4MeasurementId: 'G-ZCQ9MK5JCS',
     // معرف ناشر AdSense متوفر في إعدادات الموقع.
     adsenseClient: 'ca-pub-5656416032906373',
     // ضع هنا معرف مشروع Microsoft Clarity: xxxxxxxxxx
